@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- 根标签， mybatis 配置要加这里 -->
+<configuration>
+
+    <!-- 配置数据库链接-->
+    <properties>
+        <!-- 在xml 不能出现 > = 这些符合  &amp;代替& -->
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/ssmdemo?useUnicode=true&amp;characterEncoding=utf-8&amp;allowMultiQueries=true"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+    </properties>
+
+    <!-- 多环境配置， 开发环境，测试环境，生产环境等 default 默认环境： test-->
+
+    <environments default="test">
+
+        <!-- id：环境的唯一标识 -->
+
+        <!-- 测环境-->
+        <environment id="test">
+            <!-- 事务管理器，JDBC类型的事务管理器 -->
+            <transactionManager type="JDBC" />
+            <!-- 数据源，池类型的数据源 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/ssmdemo" />
+                <property name="username" value="root" />
+                <property name="password" value="123456" />
+            </dataSource>
+        </environment>
+
+        <!-- dev环境-->
+        <environment id="dev">
+            <!-- 事务管理器，JDBC类型的事务管理器 -->
+            <transactionManager type="JDBC" />
+            <!-- 数据源，池类型的数据源 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/mybatis-110" />
+                <property name="username" value="root" />
+                <property name="password" value="123456" />
+            </dataSource>
+        </environment>
+
+        <environment id="development">
+            <!-- 事务管理器，JDBC类型的事务管理器 -->
+            <transactionManager type="JDBC" />
+            <!-- 数据源，池类型的数据源 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}" /> <!-- 配置了properties，所以可以直接引用 -->
+                <property name="url" value="${url}" />
+                <property name="username" value="${username}" />
+                <property name="password" value="${password}" />
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- mybatis 对应的数据的映射文件，其实就是你写sql语句-->
+    <mappers>
+        <mapper resource="mappers/User.xml"></mapper>
+    </mappers>
+
+
+</configuration>

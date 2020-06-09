@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mybaitis文件的命名空间，不重复-->
+<mapper namespace = "user">
+
+
+    <!--查询 -->
+    <select id="queryAllUser" resultType="com.hzit.testMybatis.model.User">
+        select * from tb_user
+    </select>
+
+
+    <!-- 根据id查询用户信息-->
+    <select id="queryUserInfoById" resultType="com.hzit.testMybatis.model.User" parameterType="java.lang.String">
+        select * from tb_user where id = #{id};
+    </select>
+
+    <!--数据库增加记录 -->
+    <insert id="insetUser" parameterType="com.hzit.testMybatis.model.User" >
+
+        insert into tb_user(id,user_name,password,name,age,sex,birthday,created,updated)
+                     values (#{id},#{userName},#{password},#{name},#{age},#{sex},#{birthday},#{created},#{updated});
+    </insert>
+
+
+    <!-- 删除-->
+    <delete id="delUserById" parameterType="java.lang.String">
+        delete  from tb_user where id = #{id};
+    </delete>
+
+
+    <!-- 修改-->
+
+    <update id="updateUser" parameterType="com.hzit.testMybatis.model.User">
+
+        update tb_user set age = #{age}, name = #{name} where id = #{id};
+    </update>
+
+
+
+</mapper>
+
+
