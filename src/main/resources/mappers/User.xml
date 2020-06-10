@@ -2,19 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- mybaitis文件的命名空间，不重复-->
-<mapper namespace = "user">
+<!-- mybaitis文件的命名空间，不重复 , 指定使用我们接口-->
+<mapper namespace = "com.hzit.testMybatis.dao.UserDao">
 
+<resultMap id="user" type="com.hzit.testMybatis.model.User">
+    <!-- property java  bean 对象，column 表字段  -->
+    <id  property="id" column="id" jdbcType="CHAR" javaType="java.lang.String"></id>
+    <result property="userName" column="user_name" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+    <result property="password" column="password" jdbcType="VARCHAR" javaType="java.lang.String"></result>
+</resultMap>
 
-    <!--查询 -->
-    <select id="queryAllUser" resultType="com.hzit.testMybatis.model.User">
-        select * from tb_user
+    <!--查询  resultType 直接返回java userbean/ 返回其他类型，  -->
+    <!-- resultMap 必须使用上面定义的 resultMap 文件 -->
+    <select id="queryAllUser" resultMap="user">
+        select id, user_name, password from tb_user
     </select>
 
 
-    <!-- 根据id查询用户信息-->
+    <!-- 根据id查询用户信息,不提倡使用select * from-->
     <select id="queryUserInfoById" resultType="com.hzit.testMybatis.model.User" parameterType="java.lang.String">
-        select * from tb_user where id = #{id};
+        select id as id ,user_name as userName from tb_user where id = #{id};
     </select>
 
     <!--数据库增加记录 -->

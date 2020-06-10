@@ -2,6 +2,9 @@ package com.hzit.testMybatis.model;
 
 import java.util.Date;
 
+/**
+ * user对象 要么和数据库的字段一样。
+ */
 public class User {
 
     private String id;

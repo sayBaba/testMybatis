@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mybaitis文件的命名空间，不重复 , 指定使用我们接口-->
+<mapper namespace = "com.hzit.testMybatis.dao.OrderMapper">
+
+    <resultMap id="OrderAndUserLazyLoad" type="com.hzit.testMybatis.model.Orders">
+
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId" />
+        <result column="number" property="number" />
+
+        <!--select:要延迟加载的statement的id colunm：关联两张表的那个列的列名 -->
+
+        <association property="user" javaType="com.hzit.testMybatis.model.UserOrder" select="selectOrderUser"
+                     column="user_id"></association>
+
+    </resultMap>
+
+
+    <!-- 查询订单 -->
+    <select id="queryOrderById" parameterType="java.lang.Integer"  resultMap="OrderAndUserLazyLoad">
+
+        select * from myorder where id = #{id ,jdbcType=INTEGER}
+    </select>
+
+    <!-- 延迟加载的sql-->
+    <select id= "selectOrderUser" parameterType="java.lang.String" resultType="com.hzit.testMybatis.model.UserOrder">
+        select id as id ,user_id as userId, user_name as userName from orderuser where user_id =  #{userId}
+    </select>
+
+
+
+
+</mapper>
+
+

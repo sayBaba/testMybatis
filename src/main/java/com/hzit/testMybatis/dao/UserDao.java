@@ -1,7 +1,12 @@
 package com.hzit.testMybatis.dao;
 
+import com.hzit.testMybatis.model.Student;
 import com.hzit.testMybatis.model.User;
+import org.apache.ibatis.annotations.Param;
 
+/**
+ * dao层
+ */
 public interface UserDao {
 
     /**
@@ -32,5 +37,7 @@ public interface UserDao {
      * @return
      */
     public int updateUser(User user);
+
+
 
 }

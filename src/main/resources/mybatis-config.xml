@@ -15,6 +15,23 @@
         <property name="password" value="123456"/>
     </properties>
 
+    <!-- mybatis 配置-->
+    <settings>
+
+        <!-- 开启 二级缓存开关， 这里关闭，在 nameSpace开启也没用-->
+        <setting name="cacheEnabled" value="false"/>
+
+        <!-- 开启延迟加载 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+
+        <!-- 关闭积极加载 -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+
+        <!-- 是否开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn 的类似映射。  默认false -->
+        <setting name="mapUnderscoreToCamelCase" value="false"/>
+
+    </settings>
+
     <!-- 多环境配置， 开发环境，测试环境，生产环境等 default 默认环境： test-->
 
     <environments default="test">
@@ -28,7 +45,7 @@
             <!-- 数据源，池类型的数据源 -->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver" />
-                <property name="url" value="jdbc:mysql://127.0.0.1:3306/ssmdemo" />
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/student" />
                 <property name="username" value="root" />
                 <property name="password" value="123456" />
             </dataSource>
@@ -59,11 +76,23 @@
             </dataSource>
         </environment>
     </environments>
+    
+
 
     <!-- mybatis 对应的数据的映射文件，其实就是你写sql语句-->
     <mappers>
+
+        <mapper resource="mappers/orderMapper.xml"></mapper>
         <mapper resource="mappers/User.xml"></mapper>
+        <mapper resource="mappers/StudentMapper.xml"></mapper>
+        <mapper resource="mappers/subjectMapper.xml"></mapper>
+
     </mappers>
+
+    <!-- 驼峰命名法 -->
+<!--
+    <typeAliases></typeAliases>
+-->
 
 
 </configuration>
