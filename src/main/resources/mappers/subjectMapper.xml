@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- 命名空间-->
+<mapper namespace="com.hzit.testMybatis.dao.subjectMapper" >
+
+    <!--与javabean 对应 -->
+  <resultMap id="BaseResultMap" type="com.hzit.testMybatis.model.subject" >
+    <id column="sub_id" property="subId" jdbcType="INTEGER" />
+    <result column="sub_name" property="subName" jdbcType="VARCHAR" />
+    <result column="sub_type" property="subType" jdbcType="VARCHAR" />
+    <result column="sub_times" property="subTimes" jdbcType="INTEGER" />
+  </resultMap>
+
+
+   <!-- 查询的字段 -->
+  <sql id="Base_Column_List" >
+    sub_id, sub_name, sub_type, sub_times
+  </sql>
+
+    <!-- 增删改查语句 -->
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from subject
+    where sub_id = #{subId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from subject
+    where sub_id = #{subId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.hzit.testMybatis.model.subject" >
+    insert into subject (sub_id, sub_name, sub_type, 
+      sub_times)
+    values (#{subId,jdbcType=INTEGER}, #{subName,jdbcType=VARCHAR}, #{subType,jdbcType=VARCHAR}, 
+      #{subTimes,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hzit.testMybatis.model.subject" >
+    insert into subject
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="subId != null" >
+        sub_id,
+      </if>
+      <if test="subName != null" >
+        sub_name,
+      </if>
+      <if test="subType != null" >
+        sub_type,
+      </if>
+      <if test="subTimes != null" >
+        sub_times,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="subId != null" >
+        #{subId,jdbcType=INTEGER},
+      </if>
+      <if test="subName != null" >
+        #{subName,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null" >
+        #{subType,jdbcType=VARCHAR},
+      </if>
+      <if test="subTimes != null" >
+        #{subTimes,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzit.testMybatis.model.subject" >
+    update subject
+    <set >
+      <if test="subName != null" >
+        sub_name = #{subName,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null" >
+        sub_type = #{subType,jdbcType=VARCHAR},
+      </if>
+      <if test="subTimes != null" >
+        sub_times = #{subTimes,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sub_id = #{subId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hzit.testMybatis.model.subject" >
+    update subject
+    set sub_name = #{subName,jdbcType=VARCHAR},
+      sub_type = #{subType,jdbcType=VARCHAR},
+      sub_times = #{subTimes,jdbcType=INTEGER}
+    where sub_id = #{subId,jdbcType=INTEGER}
+  </update>
+</mapper>
